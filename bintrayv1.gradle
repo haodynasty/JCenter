@@ -1,14 +1,18 @@
 apply plugin: 'com.jfrog.bintray'
 
-version = libraryVersion
-
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
+    failOnError false
     source = android.sourceSets.main.java.srcDirs
+    options {
+      links "http://docs.oracle.com/javase/7/docs/api/"
+      linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
+    }
+    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 
@@ -16,12 +20,14 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
 // Bintray
+// local.properties for bintray userName,apiKey,password
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -31,20 +37,20 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
+        repo = "maven"
+        name = ARTIFACT_NAME
+        desc = ARTIFACT_DESCRIPTION
+        websiteUrl = SITE_URL
+        issueTrackerUrl = ISSUE_URL
+        vcsUrl = SCM_URL
+        licenses = ["Apache-2.0"] //TODO more sense store this array
         publish = true
         publicDownloadNumbers = true
+
         version {
-            desc = libraryDescription
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
             }
         }
     }
