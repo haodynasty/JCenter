@@ -26,6 +26,8 @@ artifacts {
     archives sourcesJar
 }
 
+version = VERSION_NAME
+
 // Bintray
 // local.properties for bintray userName,apiKey,password
 Properties properties = new Properties()
