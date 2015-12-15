@@ -40,7 +40,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = ARTIFACT_NAME + module_suffix
+        name = ARTIFACT_NAME + SUFFIX_1
         desc = ARTIFACT_DESCRIPTION
         websiteUrl = SITE_URL
         issueTrackerUrl = ISSUE_URL
