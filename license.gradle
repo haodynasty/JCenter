@@ -1,6 +1,8 @@
 //https://github.com/hierynomus/license-gradle-plugin
 //this is for gradle 1.x/2.0
-apply plugin: "com.github.hierynomus.license"
+//apply plugin: "com.github.hierynomus.license"
+//this is old
+apply plugin: 'license'
 
 license {
 
