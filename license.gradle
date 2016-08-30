@@ -5,7 +5,7 @@ apply plugin: "com.github.hierynomus.license"
 //apply plugin: 'license'
 
 license {
-
+  header rootProject.file("LICENSE")
   sourceSets {
     main.java.srcDirs = android.sourceSets.main.java.srcDirs
     main.resources.srcDirs = android.sourceSets.main.resources.srcDirs
