@@ -6,6 +6,7 @@ apply plugin: "com.github.hierynomus.license"
 
 license {
   header rootProject.file("LICENSE")
+  ignoreFailures true
   sourceSets {
     main.java.srcDirs = android.sourceSets.main.java.srcDirs
     main.resources.srcDirs = android.sourceSets.main.resources.srcDirs
